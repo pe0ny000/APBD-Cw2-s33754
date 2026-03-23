@@ -4,7 +4,7 @@
     {
         public string NrIndeksu { get; set; }
         public int Semestr { get; set; }
-
+        public override int MaksymalnaIloscWypozyczen => 2;
         public Student(int idUzytkownika, string imie, string nazwisko, string nrIndeksu, int semestr,
             int iloscAktywnychWypozyczen) : base(idUzytkownika, imie, nazwisko, iloscAktywnychWypozyczen)
         {

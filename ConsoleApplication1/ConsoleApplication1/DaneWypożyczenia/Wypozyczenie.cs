@@ -12,16 +12,16 @@ namespace ConsoleApplication1.DaneWypożyczenia
         public DateTime DataWypozyczenia { get; set; }
         public DateTime DataPlanowanegoZwrotu { get; set; }
         public DateTime DataFaktycznegoZwrotu { get; set; }
-        public double KosztWypozyczenia { get; set; }
         public Sprzet WypozyczonySprzet { get; set; }
         public UzytkownikSprzetu Uzytkownik{get; set;}
+        public double KosztWypozyczenia => ObliczKoszt();
 
-        public Wypozyczenie(int idWypozyczenie, DateTime dataWypozyczenia, DateTime dataPlanowanegoZwrotu, double kosztWypozyczenia, Sprzet wypozyczonySprzet, UzytkownikSprzetu uzytkownik)
+        public Wypozyczenie(int idWypozyczenie, DateTime dataWypozyczenia, DateTime dataPlanowanegoZwrotu, Sprzet wypozyczonySprzet, UzytkownikSprzetu uzytkownik)
         {
             this.IdWypozyczenie = idWypozyczenie;
             DataWypozyczenia = dataWypozyczenia;
             DataPlanowanegoZwrotu = dataPlanowanegoZwrotu;
-            KosztWypozyczenia = kosztWypozyczenia;
+            
             WypozyczonySprzet = wypozyczonySprzet;
             Uzytkownik = uzytkownik;
         }
@@ -29,6 +29,21 @@ namespace ConsoleApplication1.DaneWypożyczenia
         public void ZwrotSprzetu()
         {
             DataFaktycznegoZwrotu = DateTime.Now;
+        }
+        public double ObliczKoszt()
+        {
+            DateTime dataZwrotu = DataFaktycznegoZwrotu == default ? DateTime.Now : DataFaktycznegoZwrotu;
+            int dni = (int)(dataZwrotu - DataWypozyczenia).TotalDays;
+            double koszt = dni * WypozyczonySprzet.KosztWypozyczenia;
+
+            if (DataFaktycznegoZwrotu > DataPlanowanegoZwrotu)
+            {
+                int dniOpoznienia = (int)(DataFaktycznegoZwrotu - DataPlanowanegoZwrotu).TotalDays;
+                double kara = dniOpoznienia * WypozyczonySprzet.KosztWypozyczenia * 1.8; //wysokość kary za opóźnienie w zwrocie
+                koszt += kara;
+            }
+
+            return koszt;
         }
     }
 }

@@ -5,12 +5,14 @@
         public int SprzetId { get; set; }
         public string SprzetNazwa { get; set; }
         public bool JestDostepny { get; set; }
+        public double KosztWypozyczenia { get; set; }
 
-        public Sprzet(int sprzetId, string sprzetNazwa,  bool jestDostepny = true)
+        public Sprzet(int sprzetId, string sprzetNazwa, bool jestDostepny, double kosztWypozyczenia)
         {
             SprzetId = sprzetId;
             SprzetNazwa = sprzetNazwa;
             JestDostepny = jestDostepny;
+            KosztWypozyczenia = kosztWypozyczenia;
         }
     }
 }
