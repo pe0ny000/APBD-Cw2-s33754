@@ -8,7 +8,7 @@ namespace ConsoleApplication1.DaneWypożyczenia
     public class Wypozyczenie
     {
         
-        public int idWypozyczenie { get; set; }
+        public int IdWypozyczenie { get; set; }
         public DateTime DataWypozyczenia { get; set; }
         public DateTime DataPlanowanegoZwrotu { get; set; }
         public DateTime DataFaktycznegoZwrotu { get; set; }
@@ -18,7 +18,7 @@ namespace ConsoleApplication1.DaneWypożyczenia
 
         public Wypozyczenie(int idWypozyczenie, DateTime dataWypozyczenia, DateTime dataPlanowanegoZwrotu, double kosztWypozyczenia, Sprzet wypozyczonySprzet, UzytkownikSprzetu uzytkownik)
         {
-            this.idWypozyczenie = idWypozyczenie;
+            this.IdWypozyczenie = idWypozyczenie;
             DataWypozyczenia = dataWypozyczenia;
             DataPlanowanegoZwrotu = dataPlanowanegoZwrotu;
             KosztWypozyczenia = kosztWypozyczenia;
