@@ -44,8 +44,15 @@
         <Compile Include="DaneSprzetowe\Laptop.cs" />
         <Compile Include="DaneSprzetowe\Projektor.cs" />
         <Compile Include="DaneSprzetowe\Sprzet.cs" />
+        <Compile Include="DaneWypożyczenia\Wypozyczenie.cs" />
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="Uzytkownicy\Pracownik.cs" />
+        <Compile Include="Uzytkownicy\Student.cs" />
+        <Compile Include="Uzytkownicy\UzytkownikSprzetu.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="ObslugaWypozyczen\" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
