@@ -16,5 +16,10 @@ namespace ConsoleApplication1.DaneWypożyczenia
             DataFaktycznegoZwrotu = dataFaktycznegoZwrotu;
             KosztWypozyczenia = kosztWypozyczenia;
         }
+
+        public void ZwrotSprzetu()
+        {
+            DataFaktycznegoZwrotu = DateTime.Now;
+        }
     }
 }
