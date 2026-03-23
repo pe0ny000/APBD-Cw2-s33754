@@ -32,25 +32,25 @@ namespace ConsoleApplication1.ObslugaWypozyczen
             return wypozyczenie;
         }
 
-        public void ZwrocSprzet(int idWypozyczenia, UzytkownikSprzetu uzytkownik, bool nieJestUszkodzony)
+        public void ZwrocSprzet(int idWypozyczenia, bool nieJestUszkodzony)
         {
-            var wypozyczenie = _wypozyczenia.FirstOrDefault((w => w.IdWypozyczenie == idWypozyczenia));
-            if (wypozyczenie == null) throw new Exception("Wypozyczenie nie istnieje");
-            wypozyczenie?.ZwrotSprzetu();
-            
+            var wypozyczenie = _wypozyczenia.FirstOrDefault(w => w.IdWypozyczenie == idWypozyczenia);
+            if (wypozyczenie == null) throw new Exception("Wypożyczenie nie istnieje.");
+    
+            wypozyczenie.ZwrotSprzetu();
             wypozyczenie.WypozyczonySprzet.NieJestUszkodzony = nieJestUszkodzony;
-            wypozyczenie.WypozyczonySprzet.JestDostepny = true;
-            uzytkownik.IloscAktywnychWypozyczen -= 1;
+            wypozyczenie.WypozyczonySprzet.JestDostepny = nieJestUszkodzony; // niedostępny jeśli uszkodzony
+            wypozyczenie.Uzytkownik.IloscAktywnychWypozyczen -= 1;
         }
         
-        public List<Wypozyczenie> AktywneWypozyczeniaUzytkownika(int idUzytkownika)
+        public List<Wypozyczenie> PobierzAktywneWypozyczeniaUzytkownika(int idUzytkownika)
         {
             return _wypozyczenia.Where(w => w.Uzytkownik.IdUzytkownika == idUzytkownika && w.DataFaktycznegoZwrotu == default)
                 .ToList();
         }
 
 
-        public List<Wypozyczenie> PrzeterminowaneWypozyczenia()
+        public List<Wypozyczenie> PobierzPrzeterminowaneWypozyczenia()
         {
             return
                 _wypozyczenia.Where(w => w.DataFaktycznegoZwrotu == default && w.DataPlanowanegoZwrotu < DateTime.Now)
@@ -61,7 +61,7 @@ namespace ConsoleApplication1.ObslugaWypozyczen
         {
             int aktywne = _wypozyczenia.Count(w => w.DataFaktycznegoZwrotu == default);
             int zakonczone = _wypozyczenia.Count(w => w.DataFaktycznegoZwrotu != default);
-            int przeterminowane = PrzeterminowaneWypozyczenia().Count;
+            int przeterminowane = PobierzPrzeterminowaneWypozyczenia().Count;
             Console.WriteLine($"Aktywne wypożyczenia: {aktywne}");
             Console.WriteLine($"Zakończone wypożyczenia: {zakonczone}");
             Console.WriteLine($"Przeterminowane: {przeterminowane}");
