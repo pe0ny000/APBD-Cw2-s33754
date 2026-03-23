@@ -4,9 +4,9 @@ namespace ConsoleApplication1.ObslugaWypozyczen
 {
     public class DzialaniaWypozyczenia
     {
-        private readonly ProcesWypozyczenia _proces;
-        private readonly DzialaniaNaSprzecie _sprzetUI;
-        private readonly DzialaniaNaUzytkownikach _uzytkownikUI;
+        private static ProcesWypozyczenia _proces;
+        private static  DzialaniaNaSprzecie _sprzetUI;
+        private static  DzialaniaNaUzytkownikach _uzytkownikUI;
 
         public DzialaniaWypozyczenia(ProcesWypozyczenia proces, DzialaniaNaSprzecie sprzetUI, DzialaniaNaUzytkownikach uzytkownikUI)
         {
@@ -15,7 +15,7 @@ namespace ConsoleApplication1.ObslugaWypozyczen
             _uzytkownikUI = uzytkownikUI;
         }
 
-        public void WypozyczSprzet()
+        public static void WypozyczSprzet()
         {
             var sprzet = _sprzetUI.PobierzSprzet();
             var uzytkownik = _uzytkownikUI.PobierzUzytkownika();
@@ -35,7 +35,7 @@ namespace ConsoleApplication1.ObslugaWypozyczen
             }
         }
 
-        public void ZwrocSprzet()
+        public static void ZwrocSprzet()
         {
             Console.Write("ID wypożyczenia: ");
             int idWypozyczenia = int.Parse(Console.ReadLine());
@@ -45,7 +45,7 @@ namespace ConsoleApplication1.ObslugaWypozyczen
             Console.WriteLine("Zwrócono sprzęt.");
         }
 
-        public void AktywneWypozyczeniaUzytkownika()
+        public static void AktywneWypozyczeniaUzytkownika()
         {
             var uzytkownik = _uzytkownikUI.PobierzUzytkownika();
             var aktywne = _proces.PobierzAktywneWypozyczeniaUzytkownika(uzytkownik.IdUzytkownika);
@@ -53,9 +53,9 @@ namespace ConsoleApplication1.ObslugaWypozyczen
                 Console.WriteLine(w);
         }
 
-        public void PrzeterminowaneWypozyczenia()
+        public static void PrzeterminowaneWypozyczenia()
         {
-            var przeterminowane = _proces.PobierzPrzeterminowaneWypozyczenia();
+            var przeterminowane = ProcesWypozyczenia.PobierzPrzeterminowaneWypozyczenia();
             foreach (var w in przeterminowane)
                 Console.WriteLine(w);
         }

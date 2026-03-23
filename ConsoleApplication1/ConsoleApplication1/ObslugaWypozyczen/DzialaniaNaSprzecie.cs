@@ -7,14 +7,14 @@ namespace ConsoleApplication1.ObslugaWypozyczen
 {
     public class DzialaniaNaSprzecie
     {
-        private List<Sprzet> _sprzety;
+        private static List<Sprzet> _sprzety;
 
         public DzialaniaNaSprzecie(List<Sprzet> sprzety)
         {
             _sprzety = sprzety;
         }
 
-        public void DodajSprzet()
+        public static void DodajSprzet()
         {
             Console.Write("Nazwa: ");
             string nazwa = Console.ReadLine();
@@ -57,14 +57,14 @@ namespace ConsoleApplication1.ObslugaWypozyczen
             Console.WriteLine("Dodano sprzęt.");
         }
 
-        public void WyswietlCalySprzet()
+        public static void WyswietlCalySprzet()
         {
             foreach (var s in _sprzety)
                 Console.WriteLine(
                     $"{s.SprzetId}. {s.SprzetNazwa} - {(s.JestDostepny ? "dostępny" : "niedostępny")} - {s.KosztWypozyczenia} zł/dzień");
         }
 
-        public void WyswietlDostepnySprzet()
+        public static void WyswietlDostepnySprzet()
         {
             foreach (var s in _sprzety.Where(s => s.JestDostepny && !s.NieJestUszkodzony))
                 Console.WriteLine($"{s.SprzetId}. {s.SprzetNazwa} - {s.KosztWypozyczenia} zł/dzień");

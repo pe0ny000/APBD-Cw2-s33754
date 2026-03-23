@@ -9,7 +9,7 @@ namespace ConsoleApplication1.ObslugaWypozyczen
 {
     public class ProcesWypozyczenia
     {
-        private List<Wypozyczenie> _wypozyczenia = new List<Wypozyczenie>();
+        private static List<Wypozyczenie> _wypozyczenia = new List<Wypozyczenie>();
 
 
         public Wypozyczenie WypozyczSprzet(Sprzet sprzet, UzytkownikSprzetu uzytkownik, DateTime dataPlanowanegoZwrotu)
@@ -50,14 +50,14 @@ namespace ConsoleApplication1.ObslugaWypozyczen
         }
 
 
-        public List<Wypozyczenie> PobierzPrzeterminowaneWypozyczenia()
+        public static List<Wypozyczenie> PobierzPrzeterminowaneWypozyczenia()
         {
             return
                 _wypozyczenia.Where(w => w.DataFaktycznegoZwrotu == default && w.DataPlanowanegoZwrotu < DateTime.Now)
                     .ToList();
         }
 
-        public void WyswietlRaport()
+        public static void WyswietlRaport()
         {
             int aktywne = _wypozyczenia.Count(w => w.DataFaktycznegoZwrotu == default);
             int zakonczone = _wypozyczenia.Count(w => w.DataFaktycznegoZwrotu != default);

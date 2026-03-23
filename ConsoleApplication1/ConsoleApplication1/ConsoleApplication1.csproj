@@ -45,6 +45,9 @@
         <Compile Include="DaneSprzetowe\Projektor.cs" />
         <Compile Include="DaneSprzetowe\Sprzet.cs" />
         <Compile Include="DaneWypożyczenia\Wypozyczenie.cs" />
+        <Compile Include="ObslugaWypozyczen\DzialaniaNaSprzecie.cs" />
+        <Compile Include="ObslugaWypozyczen\DzialaniaNaUzytkownikach.cs" />
+        <Compile Include="ObslugaWypozyczen\DzialaniaWypozyczenia.cs" />
         <Compile Include="ObslugaWypozyczen\ProcesWypozyczenia.cs" />
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
