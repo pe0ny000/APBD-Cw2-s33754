@@ -40,7 +40,9 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="DaneSprzetowe\Camera.cs" />
         <Compile Include="DaneSprzetowe\Laptop.cs" />
+        <Compile Include="DaneSprzetowe\Projektor.cs" />
         <Compile Include="DaneSprzetowe\Sprzet.cs" />
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
