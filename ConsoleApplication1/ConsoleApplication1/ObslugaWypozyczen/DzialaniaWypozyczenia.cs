@@ -4,21 +4,21 @@ namespace ConsoleApplication1.ObslugaWypozyczen
 {
     public class DzialaniaWypozyczenia
     {
-        private static ProcesWypozyczenia _proces;
-        private static  DzialaniaNaSprzecie _sprzetUI;
-        private static  DzialaniaNaUzytkownikach _uzytkownikUI;
+        private  ProcesWypozyczenia _proces;
+        private  DzialaniaNaSprzecie _sprzet;
+        private  DzialaniaNaUzytkownikach _uzytkownik;
 
-        public DzialaniaWypozyczenia(ProcesWypozyczenia proces, DzialaniaNaSprzecie sprzetUI, DzialaniaNaUzytkownikach uzytkownikUI)
+        public DzialaniaWypozyczenia(ProcesWypozyczenia proces, DzialaniaNaSprzecie sprzet, DzialaniaNaUzytkownikach uzytkownik)
         {
             _proces = proces;
-            _sprzetUI = sprzetUI;
-            _uzytkownikUI = uzytkownikUI;
+            _sprzet = sprzet;
+            _uzytkownik = uzytkownik;
         }
 
-        public static void WypozyczSprzet()
+        public void WypozyczSprzet()
         {
-            var sprzet = _sprzetUI.PobierzSprzet();
-            var uzytkownik = _uzytkownikUI.PobierzUzytkownika();
+            var sprzet = _sprzet.PobierzSprzet();
+            var uzytkownik = _uzytkownik.PobierzUzytkownika();
 
             Console.Write("Data planowanego zwrotu (dd.MM.yyyy): ");
             DateTime dataZwrotu = DateTime.ParseExact(Console.ReadLine(), "dd.MM.yyyy", null);
@@ -35,7 +35,7 @@ namespace ConsoleApplication1.ObslugaWypozyczen
             }
         }
 
-        public static void ZwrocSprzet()
+        public  void ZwrocSprzet()
         {
             Console.Write("ID wypożyczenia: ");
             int idWypozyczenia = int.Parse(Console.ReadLine());
@@ -45,15 +45,15 @@ namespace ConsoleApplication1.ObslugaWypozyczen
             Console.WriteLine("Zwrócono sprzęt.");
         }
 
-        public static void AktywneWypozyczeniaUzytkownika()
+        public void AktywneWypozyczeniaUzytkownika()
         {
-            var uzytkownik = _uzytkownikUI.PobierzUzytkownika();
+            var uzytkownik = _uzytkownik.PobierzUzytkownika();
             var aktywne = _proces.PobierzAktywneWypozyczeniaUzytkownika(uzytkownik.IdUzytkownika);
             foreach (var w in aktywne)
                 Console.WriteLine(w);
         }
 
-        public static void PrzeterminowaneWypozyczenia()
+        public void PrzeterminowaneWypozyczenia()
         {
             var przeterminowane = ProcesWypozyczenia.PobierzPrzeterminowaneWypozyczenia();
             foreach (var w in przeterminowane)

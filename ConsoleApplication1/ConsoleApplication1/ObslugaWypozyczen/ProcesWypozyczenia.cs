@@ -57,7 +57,7 @@ namespace ConsoleApplication1.ObslugaWypozyczen
                     .ToList();
         }
 
-        public static void WyswietlRaport()
+        public void WyswietlRaport()
         {
             int aktywne = _wypozyczenia.Count(w => w.DataFaktycznegoZwrotu == default);
             int zakonczone = _wypozyczenia.Count(w => w.DataFaktycznegoZwrotu != default);

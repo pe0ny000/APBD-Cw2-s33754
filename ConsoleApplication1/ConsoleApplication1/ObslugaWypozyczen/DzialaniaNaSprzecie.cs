@@ -7,14 +7,14 @@ namespace ConsoleApplication1.ObslugaWypozyczen
 {
     public class DzialaniaNaSprzecie
     {
-        private static List<Sprzet> _sprzety;
+        private List<Sprzet> _sprzety;
 
         public DzialaniaNaSprzecie(List<Sprzet> sprzety)
         {
             _sprzety = sprzety;
         }
 
-        public static void DodajSprzet()
+        public void DodajSprzet()
         {
             Console.Write("Nazwa: ");
             string nazwa = Console.ReadLine();
@@ -32,21 +32,21 @@ namespace ConsoleApplication1.ObslugaWypozyczen
                     string procesor = Console.ReadLine();
                     Console.Write("Wielkosc ekranu (cale): ");
                     double wielkoscEkranu = double.Parse(Console.ReadLine());
-                    new Laptop(_sprzety.Count+1, nazwa, true, true, koszt, procesor, wielkoscEkranu);
+                    sprzet = new Laptop(_sprzety.Count + 1, nazwa, true, true, koszt, procesor, wielkoscEkranu);
                     break;
                 case "2":
                     Console.Write("Rozdzielczosc MPX: ");
                     double rozdzielczosc = double.Parse(Console.ReadLine());
                     Console.Write("Rodzaj matrycy: ");
                     string rodzajMatrycy = Console.ReadLine();
-                    new Camera(_sprzety.Count + 1, nazwa, true, true, koszt, rozdzielczosc, rodzajMatrycy);
+                    sprzet = new Camera(_sprzety.Count + 1, nazwa, true, true, koszt, rozdzielczosc, rodzajMatrycy);
                     break;
                 case "3":
                     Console.Write("Jasnosc: ");
                     int jasnoc = int.Parse(Console.ReadLine());
                     Console.Write("Czy posiada Bluetooth: ");
                     bool posiadaBluetooth = bool.Parse(Console.ReadLine() ?? string.Empty);
-                    new Projektor(_sprzety.Count + 1, nazwa, true, true, koszt, jasnoc, posiadaBluetooth);
+                    sprzet = new Projektor(_sprzety.Count + 1, nazwa, true, true, koszt, jasnoc, posiadaBluetooth);
                     break;
                 default:
                     Console.Write("Błędny typ sprzętu");
@@ -57,14 +57,38 @@ namespace ConsoleApplication1.ObslugaWypozyczen
             Console.WriteLine("Dodano sprzęt.");
         }
 
-        public static void WyswietlCalySprzet()
+        public void DodajLaptop(string nazwa, double koszt,
+            string procesor, double wielkoscEkranu)
+        {
+            _sprzety.Add(new Laptop(_sprzety.Count + 1, nazwa, true,true, koszt, procesor, wielkoscEkranu));
+            
+        }
+
+        public void DodajProjektor(string nazwa, double koszt,
+            int jasnosc, bool posiadaBluetooth)
+        {
+            _sprzety.Add(new Projektor(_sprzety.Count + 1, nazwa, true,true, koszt, jasnosc,
+                posiadaBluetooth));
+           
+        }
+
+        public void DodajKamere(string nazwa, double koszt,
+            double rodzielczoscMpx, string rodzajMatrycy)
+        {
+            _sprzety.Add(new Camera(_sprzety.Count + 1, nazwa, true, true, koszt, rodzielczoscMpx,
+                rodzajMatrycy));
+            
+        }
+
+
+        public void WyswietlCalySprzet()
         {
             foreach (var s in _sprzety)
                 Console.WriteLine(
                     $"{s.SprzetId}. {s.SprzetNazwa} - {(s.JestDostepny ? "dostępny" : "niedostępny")} - {s.KosztWypozyczenia} zł/dzień");
         }
 
-        public static void WyswietlDostepnySprzet()
+        public void WyswietlDostepnySprzet()
         {
             foreach (var s in _sprzety.Where(s => s.JestDostepny && !s.NieJestUszkodzony))
                 Console.WriteLine($"{s.SprzetId}. {s.SprzetNazwa} - {s.KosztWypozyczenia} zł/dzień");
