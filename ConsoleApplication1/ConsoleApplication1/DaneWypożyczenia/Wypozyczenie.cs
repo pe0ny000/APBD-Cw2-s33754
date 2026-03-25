@@ -18,7 +18,7 @@ namespace ConsoleApplication1.DaneWypożyczenia
 
         public Wypozyczenie(int idWypozyczenie, DateTime dataWypozyczenia, DateTime dataPlanowanegoZwrotu, Sprzet wypozyczonySprzet, UzytkownikSprzetu uzytkownik)
         {
-            this.IdWypozyczenie = idWypozyczenie;
+            IdWypozyczenie = idWypozyczenie;
             DataWypozyczenia = dataWypozyczenia;
             DataPlanowanegoZwrotu = dataPlanowanegoZwrotu;
             
@@ -39,7 +39,7 @@ namespace ConsoleApplication1.DaneWypożyczenia
             if (DataFaktycznegoZwrotu > DataPlanowanegoZwrotu)
             {
                 int dniOpoznienia = (int)(DataFaktycznegoZwrotu - DataPlanowanegoZwrotu).TotalDays;
-                double kara = dniOpoznienia * WypozyczonySprzet.KosztWypozyczenia * 1.8; //wysokość kary za opóźnienie w zwrocie
+                double kara = dniOpoznienia * WypozyczonySprzet.KosztWypozyczenia * 1.5; //wysokość kary za opóźnienie w zwrocie
                 koszt += kara;
             }
 
@@ -48,7 +48,7 @@ namespace ConsoleApplication1.DaneWypożyczenia
 
         public override string ToString()
         {
-            return $"{IdWypozyczenie}, [{WypozyczonySprzet}] przez {Uzytkownik}";
+            return $" {WypozyczonySprzet} wypożyczony przez {Uzytkownik}, koszt {KosztWypozyczenia} zł. ";
         }
     }
 }

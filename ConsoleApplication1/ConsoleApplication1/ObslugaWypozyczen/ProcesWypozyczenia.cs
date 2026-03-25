@@ -12,40 +12,51 @@ namespace ConsoleApplication1.ObslugaWypozyczen
         private static List<Wypozyczenie> _wypozyczenia = new List<Wypozyczenie>();
 
 
-        public Wypozyczenie WypozyczSprzet(Sprzet sprzet, UzytkownikSprzetu uzytkownik, DateTime dataPlanowanegoZwrotu)
+        public Wypozyczenie WypozyczSprzet(Sprzet sprzet, UzytkownikSprzetu uzytkownik, DateTime dataPlanowanegoZwrotu, DateTime dataWypozyczenia)
         {
-            if (!sprzet.JestDostepny)
-                throw new Exception("Sprzęt nie jest dostępny");
-            if (uzytkownik.IloscAktywnychWypozyczen >= uzytkownik.MaksymalnaIloscWypozyczen)
-                throw new Exception($"{uzytkownik.Imie} {uzytkownik.Nazwisko} osiągnął limit wypożyczeń");
-            if(!sprzet.NieJestUszkodzony)
-                throw new Exception("Sprzet jest uszkodzony");
-            
-            var wypozyczenie = new Wypozyczenie(
-                _wypozyczenia.Count + 1, DateTime.Now, dataPlanowanegoZwrotu,sprzet, uzytkownik
-            );
+            try
+            {
+                if (!sprzet.JestDostepny)
+                    throw new Exception("Sprzęt nie jest dostępny");
+                if (uzytkownik.IloscAktywnychWypozyczen >= uzytkownik.MaksymalnaIloscWypozyczen)
+                    throw new Exception($"{uzytkownik.Imie} {uzytkownik.Nazwisko} osiągnął limit wypożyczeń");
+                if (!sprzet.NieJestUszkodzony)
+                    throw new Exception("Sprzet jest uszkodzony");
 
-            sprzet.JestDostepny = false;
-            uzytkownik.IloscAktywnychWypozyczen += 1;
+                var wypozyczenie = new Wypozyczenie(
+                    _wypozyczenia.Count + 1, dataWypozyczenia, dataPlanowanegoZwrotu, sprzet, uzytkownik
+                );
 
-            _wypozyczenia.Add(wypozyczenie);
-            return wypozyczenie;
+                sprzet.JestDostepny = false;
+                uzytkownik.IloscAktywnychWypozyczen += 1;
+
+                _wypozyczenia.Add(wypozyczenie);
+                Console.WriteLine($"{uzytkownik} poprawnie wypożyczył/a sprzęt");
+                return wypozyczenie;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
 
         public void ZwrocSprzet(int idWypozyczenia, bool nieJestUszkodzony)
         {
             var wypozyczenie = _wypozyczenia.FirstOrDefault(w => w.IdWypozyczenie == idWypozyczenia);
             if (wypozyczenie == null) throw new Exception("Wypożyczenie nie istnieje.");
-    
             wypozyczenie.ZwrotSprzetu();
             wypozyczenie.WypozyczonySprzet.NieJestUszkodzony = nieJestUszkodzony;
             wypozyczenie.WypozyczonySprzet.JestDostepny = nieJestUszkodzony; // niedostępny jeśli uszkodzony
             wypozyczenie.Uzytkownik.IloscAktywnychWypozyczen -= 1;
+            Console.WriteLine(
+                $"Poprawnie zwrócono sprzęt, koszt wynosi {wypozyczenie.KosztWypozyczenia}, kara wyniosła {wypozyczenie.KosztWypozyczenia - wypozyczenie.WypozyczonySprzet.KosztWypozyczenia * 1.5}");
         }
-        
+
         public List<Wypozyczenie> PobierzAktywneWypozyczeniaUzytkownika(int idUzytkownika)
         {
-            return _wypozyczenia.Where(w => w.Uzytkownik.IdUzytkownika == idUzytkownika && w.DataFaktycznegoZwrotu == default)
+            return _wypozyczenia.Where(w =>
+                    w.Uzytkownik.IdUzytkownika == idUzytkownika && w.DataFaktycznegoZwrotu == default)
                 .ToList();
         }
 

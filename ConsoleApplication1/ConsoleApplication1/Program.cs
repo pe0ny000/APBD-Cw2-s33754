@@ -26,28 +26,47 @@ namespace ConsoleApplication1
             dzialaniaNaSprzecie.DodajKamere("Sony ZV-E10",  60.0, 24.2, "APS-C");
             dzialaniaNaSprzecie.DodajKamere("Canon EOS R50",  70.0, 24.2, "CMOS");
             
-            dzialaniaNaUzytkownikach.DodajPracownika("Anna", "Kowalska", "nauczyciel", 5000);
-            dzialaniaNaUzytkownikach.DodajPracownika("Piotr", "Nowak", "ochroniarz", 3500);
-            dzialaniaNaUzytkownikach.DodajPracownika("Maria", "Wiśniewska", "nauczyciel", 4800);
             dzialaniaNaUzytkownikach.DodajStudenta("Marek", "Kowalski", "s12345", 3);
             dzialaniaNaUzytkownikach.DodajStudenta("Julia", "Nowak", "s23456", 1);
             dzialaniaNaUzytkownikach.DodajStudenta("Tomasz", "Wiśniewski", "s34567", 5);
+            dzialaniaNaUzytkownikach.DodajPracownika("Anna", "Kowalska", "nauczyciel", 5000);
+            dzialaniaNaUzytkownikach.DodajPracownika("Piotr", "Nowak", "ochroniarz", 3500);
+            dzialaniaNaUzytkownikach.DodajPracownika("Maria", "Wiśniewska", "nauczyciel", 4800);
             
             proces.WypozyczSprzet(
                 dzialaniaNaSprzecie.PobierzSprzet(1),
                 dzialaniaNaUzytkownikach.PobierzUzytkownika(1),
-                DateTime.Now.AddDays(7)
+                new DateTime(2026,2,22), new DateTime(2026,1,30)
+            );
+            //wypozyczenie niedostepnego sprzetu
+            proces.WypozyczSprzet(
+                dzialaniaNaSprzecie.PobierzSprzet(1),
+                dzialaniaNaUzytkownikach.PobierzUzytkownika(1),
+                DateTime.Now.AddDays(5),new DateTime(2026,2,23)
+            );
+            proces.WypozyczSprzet(
+                dzialaniaNaSprzecie.PobierzSprzet(3),
+                dzialaniaNaUzytkownikach.PobierzUzytkownika(1),
+                new DateTime(2026,1,22), new DateTime(2026,1,10)
+            );
+            //przekroczenie ilosci mozliwych wypozyczen
+            proces.WypozyczSprzet(
+                dzialaniaNaSprzecie.PobierzSprzet(4),
+                dzialaniaNaUzytkownikach.PobierzUzytkownika(1),
+                DateTime.Now.AddDays(5), new DateTime(2026,1,30)
             );
             proces.WypozyczSprzet(
                 dzialaniaNaSprzecie.PobierzSprzet(2),
                 dzialaniaNaUzytkownikach.PobierzUzytkownika(4),
-                new DateTime(2026,3,22)
+                new DateTime(2026,3,22), new DateTime(2026,1,30)
             );
             proces.WypozyczSprzet(
                 dzialaniaNaSprzecie.PobierzSprzet(5),
                 dzialaniaNaUzytkownikach.PobierzUzytkownika(2),
-                DateTime.Now.AddDays(14)
+                DateTime.Now.AddDays(14), new DateTime(2026,1,30)
             );
+            proces.ZwrocSprzet(1,true);
+            proces.ZwrocSprzet(2,true);
             
             
             bool dziala = true;

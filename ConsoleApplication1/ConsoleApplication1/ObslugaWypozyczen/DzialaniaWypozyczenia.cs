@@ -22,10 +22,11 @@ namespace ConsoleApplication1.ObslugaWypozyczen
 
             Console.Write("Data planowanego zwrotu (dd.MM.yyyy): ");
             DateTime dataZwrotu = DateTime.ParseExact(Console.ReadLine(), "dd.MM.yyyy", null);
+            DateTime dataWypozyczenia = DateTime.Now;
 
             try
             {
-                var wypozyczenie = _proces.WypozyczSprzet(sprzet, uzytkownik, dataZwrotu);
+                var wypozyczenie = _proces.WypozyczSprzet(sprzet, uzytkownik, dataZwrotu, dataWypozyczenia);
                 Console.WriteLine("Wypożyczono pomyślnie.");
                 Console.WriteLine(wypozyczenie);
             }
