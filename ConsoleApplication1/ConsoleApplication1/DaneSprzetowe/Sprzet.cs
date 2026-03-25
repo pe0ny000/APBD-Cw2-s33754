@@ -17,5 +17,10 @@
             NieJestUszkodzony = nieJestUszkodzony;
             KosztWypozyczenia = kosztWypozyczenia;
         }
+
+        public override string ToString()
+        {
+            return $"{SprzetNazwa}";
+        }
     }
 }

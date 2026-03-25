@@ -74,6 +74,7 @@ namespace ConsoleApplication1.ObslugaWypozyczen
             int idUzytkownika = int.Parse(Console.ReadLine());
             return _uzytkownicy.First(u =>u.IdUzytkownika == idUzytkownika);
         }
+        public UzytkownikSprzetu PobierzUzytkownika(int id) => _uzytkownicy.First(u => u.IdUzytkownika == id);
         
     }
 }

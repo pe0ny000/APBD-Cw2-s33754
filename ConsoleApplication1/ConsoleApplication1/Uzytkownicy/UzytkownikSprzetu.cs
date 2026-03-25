@@ -15,5 +15,10 @@
             Nazwisko = nazwisko;
             IloscAktywnychWypozyczen = iloscAktywnychWypozyczen;
         }
+
+        public override string ToString()
+        {
+            return $"{Imie} {Nazwisko}";
+        }
     }
 }

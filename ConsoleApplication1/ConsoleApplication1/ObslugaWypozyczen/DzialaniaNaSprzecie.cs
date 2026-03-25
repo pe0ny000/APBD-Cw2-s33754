@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ConsoleApplication1.DaneSprzetowe;
+using ConsoleApplication1.Uzytkownicy;
 
 namespace ConsoleApplication1.ObslugaWypozyczen
 {
@@ -90,13 +91,13 @@ namespace ConsoleApplication1.ObslugaWypozyczen
 
         public void WyswietlDostepnySprzet()
         {
-            foreach (var s in _sprzety.Where(s => s.JestDostepny && !s.NieJestUszkodzony))
+            foreach (var s in _sprzety.Where(s => s.JestDostepny && s.NieJestUszkodzony))
                 Console.WriteLine($"{s.SprzetId}. {s.SprzetNazwa} - {s.KosztWypozyczenia} zł/dzień");
         }
 
         public void OznaczNiedostepny()
         {
-            WyswietlCalySprzet();
+            WyswietlDostepnySprzet();
             Console.Write("ID sprzętu: ");
             int id = int.Parse(Console.ReadLine());
             var sprzet = _sprzety.First(s => s.SprzetId == id);
@@ -111,5 +112,7 @@ namespace ConsoleApplication1.ObslugaWypozyczen
             int id = int.Parse(Console.ReadLine());
             return _sprzety.First(s => s.SprzetId == id);
         }
+        public Sprzet PobierzSprzet(int id) => _sprzety.First(s => s.SprzetId == id);
+        
     }
 }

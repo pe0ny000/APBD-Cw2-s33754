@@ -21,20 +21,34 @@ namespace ConsoleApplication1
 
             dzialaniaNaSprzecie.DodajLaptop("Dell XPS 15",  50.0, "Intel i7", 15.6);
             dzialaniaNaSprzecie.DodajLaptop("MacBook Pro",  80.0, "Apple M3", 14.0);
-
             dzialaniaNaSprzecie.DodajProjektor("Epson EB-X51", 30.0, 3800, false);
             dzialaniaNaSprzecie.DodajProjektor("BenQ MH560",  35.0, 4000, true);
-
             dzialaniaNaSprzecie.DodajKamere("Sony ZV-E10",  60.0, 24.2, "APS-C");
             dzialaniaNaSprzecie.DodajKamere("Canon EOS R50",  70.0, 24.2, "CMOS");
             
             dzialaniaNaUzytkownikach.DodajPracownika("Anna", "Kowalska", "nauczyciel", 5000);
             dzialaniaNaUzytkownikach.DodajPracownika("Piotr", "Nowak", "ochroniarz", 3500);
             dzialaniaNaUzytkownikach.DodajPracownika("Maria", "Wiśniewska", "nauczyciel", 4800);
-
             dzialaniaNaUzytkownikach.DodajStudenta("Marek", "Kowalski", "s12345", 3);
             dzialaniaNaUzytkownikach.DodajStudenta("Julia", "Nowak", "s23456", 1);
             dzialaniaNaUzytkownikach.DodajStudenta("Tomasz", "Wiśniewski", "s34567", 5);
+            
+            proces.WypozyczSprzet(
+                dzialaniaNaSprzecie.PobierzSprzet(1),
+                dzialaniaNaUzytkownikach.PobierzUzytkownika(1),
+                DateTime.Now.AddDays(7)
+            );
+            proces.WypozyczSprzet(
+                dzialaniaNaSprzecie.PobierzSprzet(2),
+                dzialaniaNaUzytkownikach.PobierzUzytkownika(4),
+                new DateTime(2026,3,22)
+            );
+            proces.WypozyczSprzet(
+                dzialaniaNaSprzecie.PobierzSprzet(5),
+                dzialaniaNaUzytkownikach.PobierzUzytkownika(2),
+                DateTime.Now.AddDays(14)
+            );
+            
             
             bool dziala = true;
             while (dziala)
@@ -49,6 +63,7 @@ namespace ConsoleApplication1
                 Console.WriteLine("7. Wypisz aktywne wypożyczenia użytkownika");
                 Console.WriteLine("8. Wypisz przeterminowane wypożyczenia");
                 Console.WriteLine("9. Napisz raport");
+                Console.WriteLine("10. Oznacz sprzęt jako niedostępny");
                 Console.WriteLine("0. Wyjście");
                 Console.Write("\nWybierz opcję: ");
 
@@ -63,6 +78,7 @@ namespace ConsoleApplication1
                     case "7": dzialaniaWypozyczenia.AktywneWypozyczeniaUzytkownika(); break;
                     case "8": dzialaniaWypozyczenia.PrzeterminowaneWypozyczenia(); break;
                     case "9": proces.WyswietlRaport(); break;
+                    case "10": dzialaniaNaSprzecie.OznaczNiedostepny(); break;
                     case "0": dziala = false; break;
                     default: Console.WriteLine("Nieprawidłowa opcja."); break;
                 }

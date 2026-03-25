@@ -45,5 +45,10 @@ namespace ConsoleApplication1.DaneWypożyczenia
 
             return koszt;
         }
+
+        public override string ToString()
+        {
+            return $"{IdWypozyczenie}, [{WypozyczonySprzet}] przez {Uzytkownik}";
+        }
     }
 }
